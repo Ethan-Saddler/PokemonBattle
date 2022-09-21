@@ -29,11 +29,25 @@ public class PokemonBattle {
 
         do {
             AttackType attack = AttackType.values()[rand.nextInt(3)];
-            
+            System.out.println(rivalHealth);
+            if (attack == AttackType.values()[0]) {
+                int attackCount = 1 + (int)(Math.random()*2);
+                double dmg = 1 + (Math.random()*5);
+                double totalDmg = dmg*attackCount;
+                rivalHealth -= totalDmg;
+                System.out.printf("%s used %s and did %f damage.\nYour rival has %f health remaining.", self, attack, totalDmg, rivalHealth);
+            } else if (attack == AttackType.values()[1]){
+                double dmg = 2 + (Math.random()*9);
+                double totalDmg = dmg;
+                rivalHealth -= dmg;
+                System.out.printf("%s used %s and did %f damage.\nYour rival has %f health remaining.", self, attack, totalDmg, rivalHealth);
+            } else {
+                double dmg = 7 + (Math.random()*2);
+                double totalDmg = dmg;
+                rivalHealth -= dmg;
+                System.out.printf("%s used %s and did %f damage.\nYour rival has %f health remaining.", self, attack, totalDmg, rivalHealth);
+            } 
+        } while (rivalHealth >= 0);
 
-        } while (rivalHealth <= 0);
-
-
-    
     }
 }
