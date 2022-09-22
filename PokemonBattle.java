@@ -5,13 +5,14 @@ import java.util.Scanner;
 
 
 public class PokemonBattle {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         Random rand = new Random();
         Scanner scan = new Scanner(System.in);
         String rival;
         String self;
-        double rivalHealth = (int) (Math.random()*20+40);
+        double rivalHealth = rand.nextInt(20) + 40;
+
         // System.out.println(selfHealth);
 
         System.out.print("Enter your Pokemon's nickname: ");
@@ -27,7 +28,6 @@ public class PokemonBattle {
         // System.out.println(self + rival);
 
         System.out.printf("Your rival has chosen %s to fight, which has %.2f health.\n", rival, round(rivalHealth));
-        
         int turnCount = 0;
 
         do {
@@ -38,34 +38,37 @@ public class PokemonBattle {
             // System.out.println(rivalHealth);
 
             if (attack == AttackType.values()[0]) {
-                int attackCount = 1 + (int)(Math.random()*2);
-                double dmg = 1 + (Math.random()*5);
-                double totalDmg = dmg*attackCount;
+                int attackCount = rand.nextInt(3) + 1;
+                double dmg = round(rand.nextDouble() * 5.0 + 1.0);
+                double totalDmg = dmg * attackCount;
                 rivalHealth -= totalDmg;
-                System.out.printf("%s used %s and did %.2f damage.\nYour rival has %.2f health remaining.\n", self, attack, round(totalDmg), round(Math.max(rivalHealth, 0)));
-            } else if (attack == AttackType.values()[1]){
-                double dmg = 2 + (Math.random()*9);
+                System.out.printf("%s used %s and did %.2f damage. ", self, attack, totalDmg);
+                System.out.printf("Your rival has %.2f health remaining.\n", Math.max(rivalHealth, 0));
+            } else if (attack == AttackType.values()[1]) {
+                double dmg = round(rand.nextDouble() * 9.0 + 2.0);
                 double totalDmg = dmg;
                 rivalHealth -= dmg;
-                System.out.printf("%s used %s and did %.2f damage.\nYour rival has %.2f health remaining.\n", self, attack, totalDmg, round(Math.max(rivalHealth, 0)));
+                System.out.printf("%s used %s and did %.2f damage. ", self, attack, totalDmg);
+                System.out.printf("Your rival has %.2f health remaining.\n", Math.max(rivalHealth, 0));
             } else {
-                double dmg = 7 + (Math.random()*2);
+                double dmg = round(rand.nextDouble() * 2.0 + 7.0);
                 double totalDmg = dmg;
                 rivalHealth -= dmg;
-                System.out.printf("%s used %s and did %.2f damage.\nYour rival has %.2f health remaining.\n", self, attack, totalDmg, round(Math.max(rivalHealth, 0)));
+                System.out.printf("%s used %s and did %.2f damage. ", self, attack, totalDmg);
+                System.out.printf("Your rival has %.2f health remaining.\n", Math.max(rivalHealth, 0));
             }
         } while (rivalHealth >= 0);
 
         System.out.printf("%s fainted after %d turns!\n", rival, turnCount);
 
-        double prize = 1200+ ((1-Math.random()) *1200);
+        double prize = round(2400 - rand.nextDouble() * 1200);
 
         System.out.printf("You have earned $%.2f!", round(prize));
 
     }
-    public static double round (double number) {
-        int tempNumber = (int) (number*100);
-        number = tempNumber/100.0;
+    public static double round(double number) {
+        int tempNumber = (int) (number * 100);
+        number = tempNumber / 100.0;
         return number;
     }
 }
